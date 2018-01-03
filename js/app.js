@@ -1,7 +1,8 @@
 /*
  * Create a list that holds all of your cards
  */
-var cardList = document.getElementsByClassName('card');
+let cards = ['fa-bicycle', 'fa-bullhorn', 'fa-diamond', 'fa-television', 'fa-wifi', 'fa-taxi', 'fa-ship', 'fa-laptop', 
+            'fa-bicycle', 'fa-bullhorn', 'fa-diamond', 'fa-television', 'fa-wifi', 'fa-taxi', 'fa-ship', 'fa-laptop'];
 
 
 /*
@@ -10,6 +11,20 @@ var cardList = document.getElementsByClassName('card');
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+cards = shuffle(cards);
+console.log(cards);
+
+function newLi() {
+    return document.createElement('li');
+} 
+
+let deck = document.querySelector('.deck');
+
+for (var i = 0; i < cards.length; i++){
+
+    deck.appendChild(newLi());
+    
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
