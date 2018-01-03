@@ -1,29 +1,26 @@
 /*
- * Create a list that holds all of your cards
+ * List of icons for the cards
  */
 let cards = ['fa-bicycle', 'fa-bullhorn', 'fa-diamond', 'fa-television', 'fa-wifi', 'fa-taxi', 'fa-ship', 'fa-laptop', 
-            'fa-bicycle', 'fa-bullhorn', 'fa-diamond', 'fa-television', 'fa-wifi', 'fa-taxi', 'fa-ship', 'fa-laptop'];
-
-
+             'fa-bicycle', 'fa-bullhorn', 'fa-diamond', 'fa-television', 'fa-wifi', 'fa-taxi', 'fa-ship', 'fa-laptop'];
 /*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
+    Shuffling the cards and then creating the html
+*/
 cards = shuffle(cards);
-console.log(cards);
-
-function newLi() {
-    return document.createElement('li');
-} 
-
 let deck = document.querySelector('.deck');
 
+function blankCard() {
+    let newBlankCard = document.createElement('li');
+    newBlankCard.setAttribute('class', 'card');
+    return newBlankCard;
+} 
+function cardIcon(i){
+    let newIcon = document.createElement('i');
+    newIcon.setAttribute('class', 'fa ' + cards[i]);
+    return newIcon;
+}
 for (var i = 0; i < cards.length; i++){
-
-    deck.appendChild(newLi());
-    
+    deck.appendChild(blankCard(i)).appendChild(cardIcon(i));
 }
 
 // Shuffle function from http://stackoverflow.com/a/2450976
