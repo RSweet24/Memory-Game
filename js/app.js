@@ -50,21 +50,24 @@ function showCard(cardToFlip) {
         shownCards = [];
     }
 }
-
 function setCardAsMatch(card){
-    card.setAttribute('class', 'card match');
+    card.setAttribute('class', 'card match animated flip');
 }
-
+function setCardAsNoMatch(c){
+    c.setAttribute('class', 'card');
+}
+function noMatchAnimate() {
+    $('.deck').addClass('animated shake').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
+      $(this).removeClass('animated shake');
+      $('.card').removeClass('open show');
+    });
+  };
 function cardsToMatch(shownCards){
     if(shownCards[0].innerHTML === shownCards[1].innerHTML){
         setCardAsMatch(shownCards[0]);
         setCardAsMatch(shownCards[1]);
     }else{
-        function noMatchAnimate(x) {
-            $('.card').addClass(x + ' animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function(){
-              $(this).removeClass('shake animated');
-            });
-          };
+        noMatchAnimate();
         return false;
     }
 }
