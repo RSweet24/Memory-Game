@@ -10,6 +10,7 @@ let shownCards = [];
 */
 cards = shuffle(cards);
 let deck = document.querySelector('.deck');
+let matchesLeft = 8;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -52,6 +53,10 @@ function showCard(cardToFlip) {
 }
 function setCardAsMatch(card){
     card.setAttribute('class', 'card match animated flip');
+    setTimeout(function(){
+        $(card).removeClass('animated flip');
+    }, 2000);
+    
 }
 function setCardAsNoMatch(c){
     c.setAttribute('class', 'card');
@@ -66,6 +71,7 @@ function cardsToMatch(shownCards){
     if(shownCards[0].innerHTML === shownCards[1].innerHTML){
         setCardAsMatch(shownCards[0]);
         setCardAsMatch(shownCards[1]);
+        --matchesLeft;
     }else{
         noMatchAnimate();
         return false;
@@ -90,6 +96,9 @@ for (var i = 0; i < clickedCard.length; i++) {
     result = clickedCard[i];
     result.addEventListener('click', function () {
         showCard(this);
-        
+        if(matchesLeft === 0){
+            alert("You win");
+        }
     });
+    
 }
