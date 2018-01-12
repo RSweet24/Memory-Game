@@ -11,6 +11,9 @@ let shownCards = [];
 cards = shuffle(cards);
 let deck = document.querySelector('.deck');
 let matchesLeft = 8;
+let moveCounter = 0;
+let moves = document.querySelector('span');
+moves.innerText = moveCounter;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -72,12 +75,17 @@ function cardsToMatch(shownCards){
         setCardAsMatch(shownCards[0]);
         setCardAsMatch(shownCards[1]);
         --matchesLeft;
+        addMoves();
     }else{
         noMatchAnimate();
+        addMoves();
         return false;
     }
 }
-
+function addMoves(){
+    moveCounter++
+    moves.innerText = moveCounter;
+}
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one) - done
