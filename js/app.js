@@ -19,7 +19,9 @@ let minutes = 0;
 let hours = 0;
 let t = null;
 
+
 document.querySelector('.restart').addEventListener('click', resetGame);
+document.querySelector('button').addEventListener('click', playAgain);
 
 startGame();
 // Setting up the game
@@ -42,13 +44,14 @@ function createCards() {
 }
 // Resetting the game
 function resetGame() {
-    cards = shuffle(cards);
-    matchesLeft = 8;
-    moveCounter = 0;
     clearCards();
-    startGame();
     clearTimeout();
     resetStars();
+    startGame();
+}
+function playAgain(){
+    modal.style.display = "none";
+    resetGame();
 }
 // Clearing the cards to blank
 function clearCards() {
@@ -88,14 +91,17 @@ function cardIcon(i) {
 
 // Showing the cards
 function showCard(cardToFlip) {
-    cardToFlip.setAttribute('class', 'card open show');
-    shownCards.push(cardToFlip);
-    if (shownCards.length === 2) {
-        cardsToMatch(shownCards);
-        shownCards = [];
-    }
-    if(matchesLeft === 0){
-        modal.style.display = "block";
+    if (shownCards.length < 2) {
+        shownCards.push(cardToFlip);
+        cardToFlip.setAttribute('class', 'card open show');
+        if (shownCards.length === 2) {
+            if (doCardsMatch(shownCards)) {
+                shownCards = [];
+            }
+        }
+        if (matchesLeft === 0) {
+            modal.style.display = "block";
+        }
     }
 }
 // Flipping the cards when they match
@@ -111,15 +117,17 @@ function noMatchAnimate() {
     $('.deck').addClass('animated shake').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', function () {
         $(this).removeClass('animated shake');
         $('.card').removeClass('open show');
+        shownCards = [];
     });
-};
+}
 // Checking cards for a match and incrementing the moves counter
-function cardsToMatch(shownCards) {
+function doCardsMatch(shownCards) {
     if (shownCards[0].innerHTML === shownCards[1].innerHTML) {
         setCardAsMatch(shownCards[0]);
         setCardAsMatch(shownCards[1]);
         --matchesLeft;
         addMoves();
+        return true;
     } else {
         noMatchAnimate();
         addMoves();
@@ -128,7 +136,8 @@ function cardsToMatch(shownCards) {
 }
 // Assigning click handler for each card
 function assignClickHandler() {
-    let clickedCard = document.querySelectorAll('.card'), result;
+    let clickedCard = document.querySelectorAll('.card'),
+        result;
     for (let i = 0; i < clickedCard.length; i++) {
         result = clickedCard[i];
         result.addEventListener('click', cardClickedEventHandler.bind(this));
@@ -136,7 +145,7 @@ function assignClickHandler() {
 }
 // move counter
 function addMoves() {
-    moveCounter++
+    moveCounter++;
     moves.innerText = moveCounter;
     removeStars();
 }
@@ -147,23 +156,24 @@ function removeStars() {
     }
 }
 // This will set the stars back to 3 at the beginning of the game
-function resetStars(){
+function resetStars() {
     $('.stars').empty();
-    for (let i = 0; i < 3; i++){
+    for (let i = 0; i < 3; i++) {
         let starHTML = '<li><i class="fa fa-star"></i></li>';
         $('.stars').append(starHTML);
-    } 
+    }
 }
 
 // Click event that will start the timer and check when the game will be over.
 function cardClickedEventHandler(cardToShow) {
-    showCard(cardToShow.target);
-    if (!timerStarted) {
-        startTimer();
-    }
-    if (matchesLeft === 0) {
-        clearTimeout(t);
-        modalContent();
+    let clickedCard = cardToShow.target;
+    if (!clickedCard.classList.contains('match')) {
+        if (clickedCard.classList.contains('card') && !clickedCard.classList.contains('open')) {
+            showCard(cardToShow.target);
+            if (matchesLeft === 0) {
+                modalContent();
+            }
+        }
     }
 }
 // Timer function to increment the time
@@ -182,27 +192,32 @@ function add() {
 
     startTimer();
 }
+
 function startTimer() {
     t = setTimeout(add, 1000);
     timerStarted = true;
 }
 
 function resetTimer() {
+    clearTimeout(t);
     stopWatch.textContent = "00:00:00";
-    seconds = 0; minutes = 0; hours = 0;
+    seconds = 0;
+    minutes = 0;
+    hours = 0;
+    startTimer();
 }
 
-modalClose.onclick = function() {
+modalClose.onclick = function () {
     modal.style.display = "none";
-}
+};
 
-window.onclick = function(event) {
+window.onclick = function (event) {
     if (event.target == modal) {
         modal.style.display = "none";
     }
-}
+};
 // Modal content 
-function modalContent(){
-    let stars = $('.stars li').length
-    $('p')[0].innerText = "You won the game!!! It took you " + stopWatch.innerText + ' to complete the board. You did it in ' + moveCounter + ' moves, which results in ' + stars + ' stars' + 'Hit the reset button if you would like to play again';
+function modalContent() {
+    let stars = $('.stars li').length;
+    $('p')[0].innerText = "You won the game!!! It took you " + stopWatch.innerText + ' to complete the board. You did it in ' + moveCounter + ' moves, which results in ' + stars + ' stars';
 }
