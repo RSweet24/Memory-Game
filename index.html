@@ -1,5 +1,6 @@
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <title>Matching Game</title>
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="css/app.css">
     <link rel="stylesheet" href="css/animate.css">
 </head>
+
 <body>
 
     <div class="container">
@@ -17,25 +19,40 @@
         </header>
 
         <section class="score-panel">
-        	<ul class="stars">
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        		<li><i class="fa fa-star"></i></li>
-        	</ul>
+            <ul class="stars">
+                <li>
+                    <i class="fa fa-star"></i>
+                </li>
+                <li>
+                    <i class="fa fa-star"></i>
+                </li>
+                <li>
+                    <i class="fa fa-star"></i>
+                </li>
+            </ul>
 
             <span class="moves">3</span> Moves
             <time class="stop-watch">00:00:00</time>
 
             <div class="restart">
-        		<i class="fa fa-repeat"></i>
-        	</div>
+                <i class="fa fa-repeat"></i>
+            </div>
         </section>
 
         <ul class="deck">
         </ul>
     </div>
 
+    <!-- The Modal -->
+    <div id="youWon" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p></p>
+        </div>
+    </div>
+
     <script src="js/app.js"></script>
     <script src="js/jquery-3.2.1.min.js"></script>
 </body>
+
 </html>
