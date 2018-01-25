@@ -3,13 +3,13 @@
 ## Table of Contents
 
 * [Instructions](#instructions)
-* [Game Rules](#Game Rules)
+* [Rules](#Rules)
 
 ## Instructions
 
 After downloading the **Memory-Game** zip file, you will need to unzip the contents and open the `index.html` file in any browser. It will open yo tour default browser, If you would like it to open to a specific one, You can also open the browser of your choice, and then drag the `index.html` into the browser and it will open.
 
-## Game Rules
+## Rules
 
 If you are unfamiliar with the Memory Game, There are 16 cards total and 8 matches. You will click two cards at a time and if they match they will flip and turn green,
 If they do not match... The board will shake and the cards will flip back over. In order to make matches you need to remember where each icon on the cards is located in order to match them. 
