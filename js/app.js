@@ -220,7 +220,7 @@ window.onclick = function (event) {
 };
 // Modal content 
 function modalContent() {
+    clearTimeout(t);
     let stars = $('.stars li').length;
     $('p')[0].innerText = "You won the game!!! It took you " + stopWatch.innerText + ' to complete the board. You did it in ' + moveCounter + ' moves, which results in ' + stars + ' stars';
-    resetTimer();
 }
