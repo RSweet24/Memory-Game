@@ -26,7 +26,6 @@ document.querySelector('button').addEventListener('click', playAgain);
 startGame();
 // Setting up the game
 function startGame() {
-
     cards = shuffle(cards);
     deck = document.querySelector('.deck');
     matchesLeft = 8;
@@ -91,6 +90,9 @@ function cardIcon(i) {
 
 // Showing the cards
 function showCard(cardToFlip) {
+    if (!timerStarted){
+        startTimer();
+    }
     if (shownCards.length < 2) {
         shownCards.push(cardToFlip);
         cardToFlip.setAttribute('class', 'card open show');
@@ -204,7 +206,7 @@ function resetTimer() {
     seconds = 0;
     minutes = 0;
     hours = 0;
-    startTimer();
+    timerStarted = false;
 }
 
 modalClose.onclick = function () {
