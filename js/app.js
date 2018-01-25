@@ -222,4 +222,5 @@ window.onclick = function (event) {
 function modalContent() {
     let stars = $('.stars li').length;
     $('p')[0].innerText = "You won the game!!! It took you " + stopWatch.innerText + ' to complete the board. You did it in ' + moveCounter + ' moves, which results in ' + stars + ' stars';
+    resetTimer();
 }
